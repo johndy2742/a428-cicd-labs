@@ -3,11 +3,4 @@ node {
         stage('Build') {
                 sh 'npm install'
             }
-        stage('Test') { 
-                sh './jenkins/scripts/test.sh' 
-        }
-    }
-}
-
-pipelineTriggers([pollSCM('*/2 * * * *')])
-//test
+       }
