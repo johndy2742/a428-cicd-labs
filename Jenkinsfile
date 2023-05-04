@@ -1,7 +1,7 @@
 node {
     stage('Build') {
         def container = docker.image('node:lts-buster-slim').withRun('-p 3000:3000') {
-            sh 'apt-get update && apt-get install -y npm'
+            sh 'sudo apt-get update && apt-get install -y npm'
         }
         container.inside {
             sh 'npm install'
