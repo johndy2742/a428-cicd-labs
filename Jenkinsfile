@@ -8,3 +8,5 @@ node {
         }
     }
 }
+
+pipelineTriggers([pollSCM('*/2 * * * *')])
