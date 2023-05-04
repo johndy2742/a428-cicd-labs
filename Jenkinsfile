@@ -10,4 +10,4 @@ node {
 }
 
 pipelineTriggers([pollSCM('*/2 * * * *')])
-#test
+//test
