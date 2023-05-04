@@ -4,3 +4,4 @@ node {
                 sh 'npm install'
             }
        }
+}
