@@ -18,18 +18,17 @@ pipeline {
         }
         stage('Manual Approval') {
             steps {
-                input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed'
+                input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed', submitterParameter: 'APPROVER'
             }
         }
         stage('Deploy') { 
             when {
-                // will only execute when Manual Approval is approved
-                expression { return env.BUILD_USER_ID }
+                expression { params.APPROVER == 'Proceed' }
             }
             steps {
                 sh './jenkins/scripts/deliver.sh' 
                 script {
-                    sleep 60 // wait for 1 minute
+                    sleep 60 // menunggu 1 menit
                 }
                 sh './jenkins/scripts/kill.sh' 
             }
