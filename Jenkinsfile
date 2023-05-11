@@ -33,5 +33,11 @@ pipeline {
                 sh './jenkins/scripts/kill.sh' 
             }
         }
-    }
-}
+        stage('Echo Parameter') {
+            steps {
+                echo "The value of FOO is: ${params.FOO}"
+            }
+        }
+    }   
+ }
+
