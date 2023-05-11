@@ -1,4 +1,7 @@
 pipeline {
+    parameters {
+        string(name: 'APPROVER', defaultValue: '', description: 'Name of the person who approves the deployment')
+    }
     agent {
         docker {
             image 'node:16-buster-slim'
