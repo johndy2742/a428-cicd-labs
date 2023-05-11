@@ -1,7 +1,4 @@
 pipeline {
-    parameters {
-        string(name: 'APPROVER', defaultValue: '', description: 'Name of the person who approves the deployment')
-    }
     agent {
         docker {
             image 'node:16-buster-slim'
@@ -19,17 +16,7 @@ pipeline {
                 sh './jenkins/scripts/test.sh'
             }
         }
-        stage('Manual Approval') {
-            steps {
-                input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed', submitterParameter: 'APPROVER'
-            }
-        }
         stage('Deploy') { 
-            when {
-                expression {
-                    return params.APPROVER == 'Proceed'
-                }
-            }
             steps {
                 sh './jenkins/scripts/deliver.sh' 
                 script {
@@ -37,11 +24,6 @@ pipeline {
                 }
                 sh './jenkins/scripts/kill.sh' 
             }
-        }
-    }
-    post {
-        always {
-            echo "APPROVER parameter value is: ${params.APPROVER}"
         }
     }
 }
