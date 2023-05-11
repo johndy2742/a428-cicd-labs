@@ -35,7 +35,7 @@ pipeline {
         }
         stage('Echo Parameter') {
             steps {
-                echo "The value of FOO is: ${params.FOO}"
+                echo "The value of APPROVER is: ${params.APPROVER}"
             }
         }
     }   
