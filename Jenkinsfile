@@ -23,7 +23,9 @@ pipeline {
         }
         stage('Deploy') { 
             when {
-                expression { params.APPROVER == 'Proceed' }
+                expression {
+                    return params.APPROVER == 'Proceed'
+                }
             }
             steps {
                 sh './jenkins/scripts/deliver.sh' 
@@ -32,6 +34,11 @@ pipeline {
                 }
                 sh './jenkins/scripts/kill.sh' 
             }
+        }
+    }
+    post {
+        always {
+            echo "APPROVER parameter value is: ${params.APPROVER}"
         }
     }
 }
