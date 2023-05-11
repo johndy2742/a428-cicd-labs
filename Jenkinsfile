@@ -16,7 +16,16 @@ pipeline {
                 sh './jenkins/scripts/test.sh'
             }
         }
+        stage('Manual Approval') {
+            steps {
+                input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed'
+            }
+        }
         stage('Deploy') { 
+            when {
+                // will only execute when Manual Approval is approved
+                expression { return currentBuild.result == 'SUCCESS' }
+            }
             steps {
                 sh './jenkins/scripts/deliver.sh' 
                 script {
