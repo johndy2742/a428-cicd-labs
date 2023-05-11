@@ -24,12 +24,12 @@ pipeline {
         stage('Deploy') { 
             when {
                 // will only execute when Manual Approval is approved
-                expression { return currentBuild.result == 'SUCCESS' }
+                expression { return env.BUILD_USER_ID }
             }
             steps {
                 sh './jenkins/scripts/deliver.sh' 
                 script {
-                    sleep 60 // menunggu 1 menit
+                    sleep 60 // wait for 1 minute
                 }
                 sh './jenkins/scripts/kill.sh' 
             }
