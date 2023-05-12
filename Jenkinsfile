@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Manual Approval') {
             steps {
-                input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed', parameter: 'APPROVER'
+                input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed', parameters: 'APPROVER'
             }
         }
         stage('Deploy') { 
