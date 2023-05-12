@@ -18,15 +18,10 @@ pipeline {
         }
         stage('Manual Approval') {
             steps {
-                script {
-                     env.APPROVE = input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed'
-                }
+                input "Lanjutkan ke tahap Deploy?"
             }
         }
         stage('Deploy') { 
-            when {
-                expression { env.APPROVE == 'Proceed' }
-            }
             steps {
                 sh './jenkins/scripts/deliver.sh' 
                 script {
@@ -35,11 +30,5 @@ pipeline {
                 sh './jenkins/scripts/kill.sh' 
             }
         }
-        stage('Echo Parameter') {
-            steps {
-                echo "The value of APPROVER is: ${env.APPROVE}"
-            }
-        }
-    }   
  }
 
