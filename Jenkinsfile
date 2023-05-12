@@ -18,7 +18,9 @@ pipeline {
         }
         stage('Manual Approval') {
             steps {
-                env.APPROVE = input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed'
+                script {
+                     env.APPROVE = input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed'
+                }
             }
         }
         stage('Deploy') { 
